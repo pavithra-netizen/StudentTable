@@ -3,7 +3,6 @@ import { sortByKey, filterByKey, uniqueValues } from '../utils/helpers.js';
 
 export class TableComponent {
   constructor(config, fetchData, parentElement) {
-    // Initialize table
     Object.assign(this, {
       config,
       fetchData,
@@ -16,7 +15,8 @@ export class TableComponent {
       isLoading: false,
       rowHeight: null,
       buffer: 5,
-      visibleLimit: 40
+      visibleLimit: 40,
+      fallbackRowHeight: 48  // <-- Fallback height here
     });
     this.setupTable();
     this.scrollArea.addEventListener('scroll', throttle(() => this.handleScroll(), 100));
@@ -24,8 +24,7 @@ export class TableComponent {
   }
 
   setupTable() {
-    // Create table structure
-    const title = createElement('h2', { textContent: 'Student Table' });
+    const title = createElement('h2', { textContent: this.config.title || 'Table' });
     title.classList.add('table-heading');
 
     this.resetButton = createElement('button', {
@@ -52,7 +51,7 @@ export class TableComponent {
     this.loadingWrapper.firstChild.classList.add('spinner');
 
     const tableWrapper = createElement('div', {}, [this.spacer, this.table, this.loadingWrapper]);
-
+    
     this.scrollArea = createElement('div', {}, [tableWrapper]);
     this.scrollArea.classList.add('scroll-container');
 
@@ -60,7 +59,6 @@ export class TableComponent {
   }
 
   renderHeader() {
-    // Render table header
     clearElementContent(this.header);
     const headerRow = createElement('tr');
 
@@ -68,7 +66,6 @@ export class TableComponent {
       let th;
 
       if (this.config.filterKey === col.key && col.isFilterable) {
-        // Filter dropdown
         const dropdown = createElement('select', {}, [
           ...['All', ...uniqueValues(this.allRows, col.key)].map(value =>
             createElement('option', { value, textContent: value })
@@ -84,12 +81,8 @@ export class TableComponent {
         const label = createElement('label', {}, [col.label + ' ', dropdown]);
         label.classList.add('filter-label');
         th = createElement('th', {}, [label]);
-      } else if (col.sortable) {
-        // Sorting button
-        const icon = this.sortKey === col.key
-          ? (this.sortOrder === 'asc' ? '↑' : '↓')
-          : '⇅';
-
+      } else if (col.sortable && col.key !== this.config.nonSortableKey) {
+        const icon = this.sortKey === col.key ? (this.sortOrder === 'asc' ? '↑' : '↓') : '⇅';
         const button = createElement('button', {
           textContent: `${col.label} ${icon}`,
           onclick: () => {
@@ -111,7 +104,6 @@ export class TableComponent {
   }
 
   renderRows(from, to) {
-    // Render rows for viewport
     clearElementContent(this.body);
     const end = Math.min(from + this.visibleLimit, to);
 
@@ -138,18 +130,15 @@ export class TableComponent {
       }
     }
 
-    const top = from * this.rowHeight;
+    const top = from * (this.rowHeight || this.fallbackRowHeight);
     this.body.style.transform = `translateY(${top}px)`;
-
-    const fullHeight = this.visibleRows.length * (this.rowHeight || 48);
-    this.spacer.style.height = `${fullHeight}px`;
   }
 
   handleScroll() {
-    // Handle scrolling
     const topScroll = this.scrollArea.scrollTop;
-    const startIndex = Math.floor(topScroll / this.rowHeight);
-    const count = Math.ceil(this.scrollArea.clientHeight / this.rowHeight);
+    const effectiveHeight = this.rowHeight || this.fallbackRowHeight;
+    const startIndex = Math.floor(topScroll / effectiveHeight);
+    const count = Math.ceil(this.scrollArea.clientHeight / effectiveHeight);
     const from = Math.max(0, startIndex - this.buffer);
     const to = Math.min(this.visibleRows.length, startIndex + count + this.buffer);
 
@@ -157,7 +146,6 @@ export class TableComponent {
   }
 
   render(reset = false) {
-    // Main render function
     let data = [...this.allRows];
 
     if (this.config.filterKey && this.selectedFilterValue !== 'All') {
@@ -167,7 +155,6 @@ export class TableComponent {
     data = sortByKey(data, this.sortKey, this.sortOrder);
     this.visibleRows = data;
 
-    // Calculate row height
     if (this.rowHeight === null && this.visibleRows.length > 0) {
       const tempRow = createElement('tr');
       this.config.columns.forEach(() => {
@@ -175,13 +162,13 @@ export class TableComponent {
         td.textContent = '-';
         tempRow.appendChild(td);
       });
-
       this.body.appendChild(tempRow);
-      this.rowHeight = tempRow.offsetHeight;
+      this.rowHeight = tempRow.offsetHeight || this.fallbackRowHeight;
       this.body.removeChild(tempRow);
     }
 
-    this.spacer.style.height = `${data.length * (this.rowHeight || 48)}px`;
+    const totalHeight = this.visibleRows.length * (this.rowHeight || this.fallbackRowHeight);
+    this.spacer.style.height = `${totalHeight}px`; //  Updated spacer height logic
 
     this.renderHeader();
     this.handleScroll();
@@ -190,17 +177,14 @@ export class TableComponent {
   }
 
   showLoader() {
-    // Show loader
     this.loadingWrapper.style.display = 'flex';
   }
 
   hideLoader() {
-    // Hide loader
     this.loadingWrapper.style.display = 'none';
   }
 
   resetTable() {
-    // Reset table settings
     this.selectedFilterValue = 'All';
     this.sortKey = this.config.defaultSortKey || null;
     this.sortOrder = 'asc';
@@ -208,7 +192,6 @@ export class TableComponent {
   }
 
   async init() {
-    // Initialize and fetch data
     try {
       this.showLoader();
       this.allRows = await this.fetchData();
@@ -219,6 +202,8 @@ export class TableComponent {
       }, [error.message]);
       td.classList.add('error');
       this.body.appendChild(createElement('tr', {}, [td]));
+    } finally {
+      this.hideLoader();
     }
   }
 }
