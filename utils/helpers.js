@@ -1,21 +1,22 @@
-export function sortByKey(data, key, direction = 'asc') {
-    const dir = direction === 'asc' ? 1 : -1;
-    return [...data].sort((a, b) => {
-      const valA = a[key];
-      const valB = b[key];
-      if (typeof valA === 'number' && typeof valB === 'number') {
-        return dir * (valA - valB);
-      }
-      return dir * String(valA).localeCompare(String(valB));
-    });
+import { CLASSES, ELEMENTS, MESSAGES } from "./constants.js";
+
+export const showNoDataMessage = (() => {
+ 
+  function render(container, message) {
+    const existingMessage = container.querySelector('.no-data-message');
+
+    if (existingMessage) {
+      existingMessage.textContent = message;
+    } else {
+      const noDataMessage = document.createElement(ELEMENTS.DIV);
+      noDataMessage.classList.add(CLASSES.NO_DATA_MESSAGE);
+      noDataMessage.textContent = message;
+      container.appendChild(noDataMessage);
+    }
   }
-  
-  export function filterByKey(data, key, value) {
-    if (!key || value === 'All') return data;
-    return data.filter(item => item[key] === value);
-  }
-  
-  export function uniqueValues(data, key) {
-    return [...new Set(data.map(item => item[key]))];
-  }
-  
+
+  return {
+    noData: (container) => render(container, MESSAGES.NO_DATA),
+    error: (container) => render(container, MESSAGES.ERROR_LOADING),
+  };
+})();

@@ -1,12 +1,12 @@
 FIXED:
 
-1.Ensured fallback height is applied properly (48 as default).
+1.Ensured fallback height is applied properly (48 as default). ( row height )
 
-2.Included loading and error handling improvements.
+2.Included loading and error handling improvements. (in init)
 
-3.Applied clear naming and clean formatting.
+3.Applied clear naming and clean formatting.(scrollArea, visibleRows, resetButton, loadingWrapper)
 
-4.Updated spacer height logic.
+4.Updated spacer height logic.( full data height (scroll thumb might misbehave))
 
 5.nonSortableKey is used to prevent a specific column from being sortable.
 
