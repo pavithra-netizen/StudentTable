@@ -12,8 +12,9 @@ export class TableComponent {
     this.sortState = {};
     this.data = data;
   
-    renderHeader(config, this.table, this.sortState, this.handleTableSort.bind(this), data, this.handleTableFilter.bind(this));
-    renderBody(data, config, this.table);
+    renderHeader(config, this.table, this.sortState, this.handleTableSort.bind(this), data,
+     this.handleTableFilter.bind(this));
+    renderBody(data, config, this.table,this.container);
     this.container.appendChild(this.table);
   }
 

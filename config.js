@@ -7,17 +7,11 @@ export const config = {
     { key: 'age', label: 'Age', isSortable: true, width: '100px', isFilterable: false },
     { key: 'rank', label: 'Rank', width: '120px', isSortable: false, isFilterable: true }
   ],
-  sortIcons: {
-    asc: '↑',
-    desc: '↓',
-    neutral: '⇅'
-  },
 
   tableDataCustomRenderer: {
     name: (value) => {
       const div = document.createElement(ELEMENTS.DIV);
       div.classList.add(CLASSES.NAME_CONTAINER);
-
       const nameText = document.createElement(ELEMENTS.SPAN);
       nameText.textContent = value;
       nameText.classList.add(CLASSES.NAME_TEXT);

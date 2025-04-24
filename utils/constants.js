@@ -1,5 +1,5 @@
 export const ELEMENTS = {
-    CONTAINER: 'table-container',
+    CONTAINER: 'container',
     TABLE: 'table',
     DIV: 'div',
     THEAD: 'thead',

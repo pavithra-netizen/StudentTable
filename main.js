@@ -2,6 +2,9 @@ import { TableComponent } from './components/TableComponent.js';
 import { showNoDataMessage } from './utils/helpers.js';
 import { config } from './config.js';
 import { fetchData } from './api.js';
+import { ELEMENTS } from './utils/constants.js';
+
+const container = document.createElement(ELEMENTS.CONTAINER);
 
 (async () => {
   try {

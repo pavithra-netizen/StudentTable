@@ -20,3 +20,15 @@ export const showNoDataMessage = (() => {
     error: (container) => render(container, MESSAGES.ERROR_LOADING),
   };
 })();
+
+
+export function throttle(fn, delay) {
+  let inThrottle;
+  return function (...args) {
+    if (!inThrottle) {
+      fn(...args);
+      inThrottle = true;
+      setTimeout(() => inThrottle = false, delay);
+    }
+  };
+}
