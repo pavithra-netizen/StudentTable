@@ -12,6 +12,7 @@ export function simpleSort(a, b) {
   }
 
 export function getSortedData(data,field,order){
+    if (order === 'neutral') return data
    return [...data].sort((a, b) => {
         const valA = a[field];
         const valB = b[field];

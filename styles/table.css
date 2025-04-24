@@ -11,6 +11,11 @@ body {
   flex-direction: column;
 }
 
+.header-wrapper {
+  display: flex;
+  flex-direction: row;
+}
+
 .sortable {
   cursor: pointer;
 }
@@ -25,6 +30,9 @@ body {
 
 .sortable.desc::before {
   content: "↓";
+}
+.sortable.neutral::before {
+  content: "⇅";
 }
 
 #table-container {

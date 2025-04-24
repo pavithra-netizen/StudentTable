@@ -1,4 +1,5 @@
 export const ELEMENTS = {
+    CONTAINER: 'table-container',
     TABLE: 'table',
     DIV: 'div',
     THEAD: 'thead',
@@ -9,8 +10,8 @@ export const ELEMENTS = {
     OPTION: 'option',
     STRONG: 'strong',
     SPAN: 'span',
-    TBODY:'tbody',
-    TD:'td'
+    TBODY: 'tbody',
+    TD: 'td',
 };
 
 export const EVENTS = {
@@ -26,7 +27,12 @@ export const CLASSES = {
     NAME_TEXT: 'name-text',
     AGE_TEXT: 'age-text',
     RANK_BADGE: 'rank-badge',
-    FILTER_SELECT:'filter-select'
+    FILTER_SELECT: 'filter-select',
+    HEADER_WRAPPER:'header-wrapper',
+    ASC: 'asc',  
+    DESC: 'desc', 
+    NEUTRAL: 'neutral',
+    
 };
 
 export const MESSAGES = {
