@@ -2,21 +2,21 @@ import { TableComponent } from './components/TableComponent.js';
 import { showNoDataMessage } from './utils/helpers.js';
 import { config } from './config.js';
 import { fetchData } from './api.js';
-import { ELEMENTS } from './utils/constants.js';
+import { ELEMENTS, MESSAGES } from './utils/constants.js';
 
-const container = document.createElement(ELEMENTS.CONTAINER);
+const container = document.getElementById(ELEMENTS.CONTAINER);
 
 (async () => {
   try {
-    const data = await fetchData();
+    let data = [];
+    data =  await fetchData()
     new TableComponent(config, data);
 
     if (data.length === 0) {
-      showNoDataMessage.noData(container);
+      showNoDataMessage(container,MESSAGES.NO_DATA);
     }
   } catch (error) {
-    console.error('Error fetching data:', error);
-    showNoDataMessage.error(container);
+    showNoDataMessage(container,MESSAGES.ERROR_LOADING);
   }
 })();//immediaty invoked function 
 

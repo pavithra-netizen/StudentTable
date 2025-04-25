@@ -6,14 +6,12 @@ body {
 }
 
 .container {
+  display:flex;
+  flex-direction: column;
+  align-items: center;
   height: 100vh;
   overflow-y: scroll;
 }
-
-/* .header-wrapper {
-  display: flex;
-  flex-direction: row;
-} */
 
 .sortable {
   cursor: pointer;
@@ -42,7 +40,7 @@ body {
 
 .tableTag {
   width: 80%;
-  border-collapse: collapse;
+  /* border-collapse: collapse; */
   font-family: Arial, sans-serif;
   align-self: center;
   margin: 10px;
@@ -136,5 +134,47 @@ body {
   text-align: center;
   width: 100%; /* Ensures the select box is aligned with the label */
   cursor: pointer;
-  transition: border-color 0.3s ease, background-color 0.3s ease;
 }
+
+
+.search-wrapper {
+  /* position: relative; */
+  display: flex;
+  justify-content: center; /* Center the search bar horizontally */
+  align-items: center;     /* Center vertically if needed */
+  margin-bottom: 20px;     /* Adjust margin as needed */
+}
+
+.search-input-wrapper {
+  /* position: relative; */
+  display: inline-block;
+}
+
+.search-input {
+  min-width: 200px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 6px 10px;  /* Simple padding */
+  box-sizing: border-box;
+}
+
+.search-input::placeholder {
+  color: #999;
+}
+
+.search-clear {
+  /* position: absolute; */
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  font-size: 14px;  /* Larger clear icon */
+  color: #888;
+  display: none;
+}
+
+.search-clear.visible {
+  display: block;
+}
+

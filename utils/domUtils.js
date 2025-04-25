@@ -24,10 +24,10 @@ export function renderRows(data = null, config, table, page = 0) {
         console.log("====", data)
 
         // 👇 Infinite scroll trigger
-        const target = event?.target;
-        if (target.scrollTop + target.offsetHeight >= target.scrollHeight) {
-            handleInfiniteScroll(page, data, config, table)
-        }
+        // const target = event?.target;
+        // if (target.scrollTop + target.offsetHeight >= target.scrollHeight) {
+        //     handleInfiniteScroll(page, data, config, table)
+        // }
     });
 
     // Initial render
@@ -119,9 +119,9 @@ function updateRows(data, config, rows, startIndex) {
     });
 }
 
-async function handleInfiniteScroll(currentPageNumber, currentData, config, table) {
-    const page = currentPageNumber + 1
-    const url = APP_URL.GET_USERS_LIST.replace('{{PAGE}}', page).replace('{{LIMIT}}', 20)
-    const data = await fetchData(url);
-    renderRows([...currentData, ...data], config, table, page);
-}
+// async function handleInfiniteScroll(currentPageNumber, currentData, config, table) {
+//     const page = currentPageNumber + 1
+//     const url = APP_URL.GET_USERS_LIST.replace('{{PAGE}}', page).replace('{{LIMIT}}', 20)
+//     const data = await fetchData(url);
+//     renderRows([...currentData, ...data], config, table, page);
+// }

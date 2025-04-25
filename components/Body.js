@@ -1,16 +1,14 @@
-import { ELEMENTS } from "../utils/constants.js";
-import { throttle } from "../utils/helpers.js"
+import { ELEMENTS, EVENTS } from "../utils/constants.js";
+import {  throttle } from "../utils/helpers.js"
 
 const ROW_HEIGHT = 48;
 
 let throttledScrollHandlerRef; // Declare outside renderBody to maintain reference
 let dataRef
-let tbodyRef
 
 export function renderBody(data = null, config, table, page = 0) {
     const container = document.getElementById(ELEMENTS.CONTAINER);
     let tbody = table.querySelector(ELEMENTS.TBODY);
-    tbodyRef = tbody
     dataRef = data
 
     // Create tbody if it doesn't exist
@@ -22,28 +20,24 @@ export function renderBody(data = null, config, table, page = 0) {
     if (!throttledScrollHandlerRef) {
         throttledScrollHandlerRef = throttle(() => {
             const scrollTop = container.scrollTop;
-            const startIndex = Math.floor(scrollTop / ROW_HEIGHT);
-            const rows = handleDynamicRowInsertionOrDeletion(dataRef, config, tbody, table);
+            const startIndex = Math.floor(scrollTop / ROW_HEIGHT); //4418/48 = 92 -->startIndex
+            const rows = handleDynamicRowInsertionOrDeletion(dataRef, config, tbody);
             updateRows(dataRef, config, rows, startIndex);
             tbody.style.transform = `translateY(${startIndex * ROW_HEIGHT}px)`;
-            //  Infinite scroll trigger
-            // const target = event?.target;
-            // if (target.scrollTop + target.offsetHeight >= target.scrollHeight) {
-            //     // handleInfiniteScroll(page, data, config, table)
-            // }
         }, 20);
-        container.addEventListener('scroll', throttledScrollHandlerRef);
+        container.addEventListener(EVENTS.SCROLL, throttledScrollHandlerRef);
     }
 
     // Initial render
-    const rows = handleDynamicRowInsertionOrDeletion(data, config, tbody, table)
+    const rows = handleDynamicRowInsertionOrDeletion(data, config, tbody)
     updateRows(data, config, rows, 0);
 }
 
-function handleDynamicRowInsertionOrDeletion(data, config, tbody, table) {
-    const scrollTop = container.scrollTop;
-    const startRowIndex = Math.floor(scrollTop / ROW_HEIGHT);
+function handleDynamicRowInsertionOrDeletion(data, config, tbody) {
+    const scrollTop = container.scrollTop; //0
+    const startRowIndex = Math.floor(scrollTop / ROW_HEIGHT); //0/48=>0
     const endRowIndex = Math.min(data.length, Math.ceil((scrollTop + container.clientHeight) / ROW_HEIGHT));
+                                  // 100 , (0  +  641 )  / 48 =>  13
     const visibleRowCount = endRowIndex - startRowIndex;
 
     const existingRows = Array.from(tbody.querySelectorAll(ELEMENTS.TR));
@@ -78,20 +72,6 @@ function handleDynamicRowInsertionOrDeletion(data, config, tbody, table) {
     while (tbody.children.length > visibleRowCount) {
         tbody.removeChild(tbody.lastChild);
     }
-
-    // Spacer div for scroll illusion (Fake scroller)
-    // let spacer = container.querySelector(".virtual-scroll-spacer");
-    // if (!spacer) {
-    //     spacer = document.createElement("div");
-    //     spacer.className = "virtual-scroll-spacer";
-    //     container.appendChild(spacer);
-    // }
-    // const header = table.querySelector("thead");
-    // const headerHeight = header?.offsetHeight || 0;
-    // const visibleRowsHeight = container.clientHeight;
-    // const scrollableHeight = Math.max(0, data.length * ROW_HEIGHT - visibleRowsHeight + headerHeight);
-    // //0,100*48-374+
-    // spacer.style.height = `${scrollableHeight}px`;
     return rows
 }
 
@@ -122,10 +102,3 @@ function updateRows(data, config, rows, startIndex) {
         });
     });
 }
-
-// async function handleInfiniteScroll(currentPageNumber, currentData, config, table) {
-//     const page = currentPageNumber + 1
-//     const url = APP_URL.GET_USERS_LIST.replace('{{PAGE}}', page).replace('{{LIMIT}}', 20)
-//     const data = await fetchData(url);
-//     renderRows([...currentData, ...data], config, table, page);
-// }

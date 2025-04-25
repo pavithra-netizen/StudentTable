@@ -1,26 +1,25 @@
 import { CLASSES, ELEMENTS, MESSAGES } from "./constants.js";
 
-export const showNoDataMessage = (() => {
- 
-  function render(container, message) {
-    const existingMessage = container.querySelector('.no-data-message');
+export function showNoDataMessage(container, message) {
+  // Check if there's an existing "No Data" message
+  const existingMessage = container.querySelector('.no-data-message');
 
-    if (existingMessage) {
-      existingMessage.textContent = message;
-    } else {
-      const noDataMessage = document.createElement(ELEMENTS.DIV);
-      noDataMessage.classList.add(CLASSES.NO_DATA_MESSAGE);
-      noDataMessage.textContent = message;
-      container.appendChild(noDataMessage);
-    }
+  if (existingMessage) {
+    existingMessage.textContent = message; // Update message if already present
+  } else {
+    const noDataMessage = document.createElement(ELEMENTS.DIV);
+    noDataMessage.classList.add(CLASSES.NO_DATA_MESSAGE);
+    noDataMessage.textContent = message;
+    container.appendChild(noDataMessage);
   }
+}
 
-  return {
-    noData: (container) => render(container, MESSAGES.NO_DATA),
-    error: (container) => render(container, MESSAGES.ERROR_LOADING),
-  };
-})();
-
+export function removeNoDataMessage(container) {
+  const existingMessage = container.querySelector('.no-data-message');
+  if (existingMessage) {
+    existingMessage.remove();
+  }
+}
 
 export function throttle(fn, delay) {
   let inThrottle;
@@ -30,5 +29,15 @@ export function throttle(fn, delay) {
       inThrottle = true;
       setTimeout(() => inThrottle = false, delay);
     }
+  };
+}
+
+
+
+export function debounce(fn, delay) {
+  let timer;
+  return (...args) => {
+    clearTimeout(timer);
+    timer = setTimeout(() => fn(...args), delay);
   };
 }

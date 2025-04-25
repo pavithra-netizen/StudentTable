@@ -12,11 +12,14 @@ export const ELEMENTS = {
     SPAN: 'span',
     TBODY: 'tbody',
     TD: 'td',
+    INPUT: 'input'
 };
 
 export const EVENTS = {
     CLICK: 'click',
-    CHANGE: 'change'
+    CHANGE: 'change',
+    INPUT: 'input',
+    SCROLL: 'scroll'
 }
 
 export const CLASSES = {
@@ -28,17 +31,30 @@ export const CLASSES = {
     AGE_TEXT: 'age-text',
     RANK_BADGE: 'rank-badge',
     FILTER_SELECT: 'filter-select',
-    HEADER_WRAPPER:'header-wrapper',
-    ASC: 'asc',  
-    DESC: 'desc', 
+    ASC: 'asc',
+    DESC: 'desc',
     NEUTRAL: 'neutral',
-    
+    SEARCH_INPUT: 'search-input',
+    VISIBLE: 'visible',
+    SEARCH_WRAPPER: 'search-wrapper',
+    SEARCH_CLEAR: 'search-clear'
 };
 
 export const MESSAGES = {
     NO_DATA: 'No data available.',
     ERROR_LOADING: 'Error loading data. Please try again later.',
 };
+export const TEXT = {
+    ALL_OPTION: "All",
+    SORT_STATES: {
+        NEUTRAL: "neutral",
+        ASC: "asc",
+        DESC: "desc"
+    },
+    PLACEHOLDERS: {
+        SEARCH: "Search here..."
+    }
+}
 
 export const DATA_TYPES = {
     NUMBER: 'number',

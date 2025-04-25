@@ -1,4 +1,4 @@
-import { CLASSES, ELEMENTS, EVENTS } from "../utils/constants.js";
+import { CLASSES, ELEMENTS, EVENTS, TEXT } from "../utils/constants.js";
 
 export function renderHeader(config, table, sortState, handleTableSort, data, handleTableFilter) {
     const thead = document.createElement(ELEMENTS.THEAD);
@@ -9,7 +9,6 @@ export function renderHeader(config, table, sortState, handleTableSort, data, ha
 
         //filter
         const wrapper = document.createElement(ELEMENTS.DIV);
-        wrapper.classList.add(CLASSES.HEADER_WRAPPER);
 
         const labelSpan = document.createElement(ELEMENTS.SPAN);
         labelSpan.textContent = element.label;
@@ -19,11 +18,12 @@ export function renderHeader(config, table, sortState, handleTableSort, data, ha
             const iconSpan = document.createElement(ELEMENTS.SPAN);
             iconSpan.classList.add(CLASSES.SORTABLE_ICON, CLASSES.NEUTRAL);
             th.appendChild(iconSpan);
-            sortState[element.key] = 'neutral';
+            sortState[element.key] = TEXT.SORT_STATES.NEUTRAL;
 
             th.addEventListener(EVENTS.CLICK, () => {
                 const currentOrder = sortState[element.key];
-                const nextOrder = currentOrder === 'neutral' ? 'asc' : (currentOrder === 'asc' ? 'desc' : 'neutral');
+                const nextOrder = currentOrder === TEXT.SORT_STATES.NEUTRAL ? TEXT.SORT_STATES.ASC :
+                    (currentOrder === TEXT.SORT_STATES.ASC ? TEXT.SORT_STATES.DESC : TEXT.SORT_STATES.NEUTRAL);
                 sortState[element.key] = nextOrder;
                 iconSpan.classList.remove(CLASSES.ASC, CLASSES.DESC, CLASSES.NEUTRAL);
                 iconSpan.classList.add(CLASSES.SORTABLE_ICON, CLASSES[nextOrder.toUpperCase()]);
@@ -38,7 +38,7 @@ export function renderHeader(config, table, sortState, handleTableSort, data, ha
             select.classList.add(CLASSES.FILTER_SELECT);
             const defaultOption = document.createElement(ELEMENTS.OPTION);
             defaultOption.value = '';
-            defaultOption.textContent = 'All';
+            defaultOption.textContent = TEXT.ALL_OPTION;
             select.appendChild(defaultOption);
 
             uniqueValues.forEach(value => {
