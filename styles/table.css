@@ -180,6 +180,13 @@ body {
   display: block;
 }
 
+.table-loader {
+  text-align: center;
+  padding: 1rem;
+  font-size: 16px;
+  color: #555;
+}
+
 
 
 

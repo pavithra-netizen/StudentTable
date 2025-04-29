@@ -42,3 +42,17 @@ export function debounce(fn, delay) {
     timer = setTimeout(() => fn(...args), delay);
   };
 }
+
+
+export function createLoader() {
+  const loader = document.createElement(ELEMENTS.DIV);
+  loader.className = CLASSES.TABLE_LOADER;
+  loader.textContent = MESSAGES.LOADING; // Or use a spinner icon
+  return loader;
+}
+
+export function removeLoader(container, loader) {
+  if (container.contains(loader)) {
+    container.removeChild(loader);
+  }
+}

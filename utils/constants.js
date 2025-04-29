@@ -19,7 +19,8 @@ export const EVENTS = {
     CLICK: 'click',
     CHANGE: 'change',
     INPUT: 'input',
-    SCROLL: 'scroll'
+    SCROLL: 'scroll',
+    
 }
 
 export const CLASSES = {
@@ -37,12 +38,14 @@ export const CLASSES = {
     SEARCH_INPUT: 'search-input',
     VISIBLE: 'visible',
     SEARCH_WRAPPER: 'search-wrapper',
-    SEARCH_CLEAR: 'search-clear'
+    SEARCH_CLEAR: 'search-clear',
+    TABLE_LOADER:'table-loader'
 };
 
 export const MESSAGES = {
     NO_DATA: 'No data available.',
     ERROR_LOADING: 'Error loading data. Please try again later.',
+    LOADING:'Loading...'
 };
 export const TEXT = {
     ALL_OPTION: "All",

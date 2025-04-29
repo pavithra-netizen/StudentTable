@@ -1,5 +1,5 @@
 import { TableComponent } from './components/TableComponent.js';
-import { showNoDataMessage } from './utils/helpers.js';
+import { createLoader, removeLoader, showNoDataMessage } from './utils/helpers.js';
 import { config } from './config.js';
 import { fetchData } from './api.js';
 import { ELEMENTS, MESSAGES } from './utils/constants.js';
@@ -7,16 +7,21 @@ import { ELEMENTS, MESSAGES } from './utils/constants.js';
 const container = document.getElementById(ELEMENTS.CONTAINER);
 
 (async () => {
+
+  const loader = createLoader();
+  container.appendChild(loader);
   try {
     let data = [];
-    data =  await fetchData()
+    data = await fetchData()
+    removeLoader(container, loader);
     new TableComponent(config, data);
 
     if (data.length === 0) {
-      showNoDataMessage(container,MESSAGES.NO_DATA);
+      showNoDataMessage(container, MESSAGES.NO_DATA);
     }
   } catch (error) {
-    showNoDataMessage(container,MESSAGES.ERROR_LOADING);
+    removeLoader(container, loader);
+    showNoDataMessage(container, MESSAGES.ERROR_LOADING);
   }
 })();//immediaty invoked function 
 
