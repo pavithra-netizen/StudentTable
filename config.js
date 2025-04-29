@@ -2,10 +2,42 @@ import { CLASSES, ELEMENTS } from "./utils/constants.js";
 
 export const config = {
   columns: [
-    { key: 'rollNo', label: 'Roll No', width: '80px', isSortable: false, isFilterable: false },
-    { key: 'name', label: 'Name', isSortable: true, width: '150px', isFilterable: false },
-    { key: 'age', label: 'Age', isSortable: true, width: '100px', isFilterable: false },
-    { key: 'rank', label: 'Rank', width: '120px', isSortable: false, isFilterable: true }
+    {
+      key: 'rollNo',
+      label: 'Roll No',
+      width: '20%',
+      minWidth: '100px',
+      maxWidth: '150px',
+      isSortable: false,
+      isFilterable: false
+    },
+    {
+      key: 'name',
+      label: 'Name',
+      width: '25%',
+      minWidth: '150px',
+      maxWidth: '250px',
+      isSortable: true,
+      isFilterable: false
+    },
+    {
+      key: 'age',
+      label: 'Age',
+      width: '20%',
+      minWidth: '80px',
+      maxWidth: '120px',
+      isSortable: true,
+      isFilterable: false
+    },
+    {
+      key: 'rank',
+      label: 'Rank',
+      width: '25%',
+      minWidth: '100px',
+      maxWidth: '200px',
+      isSortable: false,
+      isFilterable: true
+    }
   ],
 
   tableDataCustomRenderer: {

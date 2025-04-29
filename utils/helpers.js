@@ -37,6 +37,7 @@ export function throttle(fn, delay) {
 export function debounce(fn, delay) {
   let timer;
   return (...args) => {
+    // console.log(timer,...args,"pppp")=> 8 'alice' 
     clearTimeout(timer);
     timer = setTimeout(() => fn(...args), delay);
   };

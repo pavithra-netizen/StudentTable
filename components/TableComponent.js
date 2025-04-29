@@ -14,33 +14,32 @@ export class TableComponent {
     this.sortState = {};
     this.data = data;
 
-    const searchBar = renderSearchBar(container, this.handleTableSearch.bind(this))
+    const searchBar = renderSearchBar(container, this.handleTableSearch)
     this.container.appendChild(searchBar);
 
-    renderHeader(config, this.table, this.sortState, this.handleTableSort.bind(this), data,
-      this.handleTableFilter.bind(this));
+    renderHeader(config, this.table, this.sortState, this.handleTableSort, data,
+    this.handleTableFilter);
     renderBody(data, config, this.table, this.container);
     this.container.appendChild(this.table);
-
   }
 
   //sort
-  handleTableSort(field, order) {
+  handleTableSort = (field, order) => {
     const sorted = getSortedData(this.data, field, order)
     renderBody(sorted, this.config, this.table);
   }
 
   //filter
-  handleTableFilter(field, value) {
+  handleTableFilter = (field, value) => {
     const filtered = value ? this.data.filter(item => item[field] === value) : this.data;
     renderBody(filtered, this.config, this.table)
   }
 
   //search
-  handleTableSearch(searchValue) {
+  handleTableSearch = (searchValue) => {
     const normalizedSearch = searchValue.trim().toLowerCase();
     removeNoDataMessage(this.container);
-    if (!!normalizedSearch) {
+    if (!!normalizedSearch) { //!! equal to Boolean(value)
       const filtered = this.data.filter(row =>
         Object.values(row).some(val =>
           String(val).toLowerCase().indexOf(normalizedSearch) !== -1
