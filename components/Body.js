@@ -4,6 +4,7 @@ import { throttle } from "../utils/helpers.js";
 let ROW_HEIGHT = 48;
 let throttledScrollHandlerRef; // Declare outside renderBody to maintain reference
 let dataRef
+const buffer = 5;
 
 export function renderBody(data = null, config, table, page = 0) {
     const container = document.getElementById(ELEMENTS.CONTAINER);
@@ -28,7 +29,8 @@ export function renderBody(data = null, config, table, page = 0) {
     if (!throttledScrollHandlerRef) {
         throttledScrollHandlerRef = throttle(() => {
             const scrollTop = container.scrollTop;
-            const startIndex = Math.floor(scrollTop / ROW_HEIGHT); //4418/48 = 92 -->startIndex
+            const startIndex = Math.max(0,Math.floor(scrollTop / ROW_HEIGHT)-buffer);
+             //4418/48 = 92 -->startIndex
             const rows = handleDynamicRowInsertionOrDeletion(dataRef, config, tbody);
             updateRows(dataRef, config, rows, startIndex);
             tbody.style.transform = `translateY(${startIndex * ROW_HEIGHT}px)`; // move the <tbody> element vertically.
@@ -47,10 +49,8 @@ function handleDynamicRowInsertionOrDeletion(data, config, tbody) {
     let endRowIndex = Math.min(data.length, Math.ceil((scrollTop + container.clientHeight) / ROW_HEIGHT));
     // 100 , (0  +  641 )  / 48 =>  13
     // Add buffer
-    const buffer = 1;
     startRowIndex = Math.max(0, startRowIndex - buffer);
     endRowIndex = Math.min(data.length, endRowIndex + buffer);
-
 
     const visibleRowCount = endRowIndex - startRowIndex;
 
