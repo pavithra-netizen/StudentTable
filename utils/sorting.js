@@ -1,4 +1,4 @@
-import { DATA_TYPES } from "./constants.js";
+import { DATA_TYPES } from "../components/Table/constants.js";
 
 export function simpleSort(a, b) {
     if (a == null && b == null) return 0;

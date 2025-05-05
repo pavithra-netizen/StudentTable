@@ -1,4 +1,4 @@
-import { CLASSES, ELEMENTS } from "./utils/constants.js";
+import { CLASSES, ELEMENTS } from "./components/Table/constants.js";
 
 export const config = {
   columns: [

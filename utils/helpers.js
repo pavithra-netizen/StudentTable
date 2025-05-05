@@ -1,4 +1,4 @@
-import { CLASSES, ELEMENTS, MESSAGES } from "./constants.js";
+import { CLASSES, ELEMENTS, MESSAGES } from "../components/Table/constants.js";
 
 export function showNoDataMessage(container, message) {
   // Check if there's an existing "No Data" message
@@ -47,7 +47,7 @@ export function debounce(fn, delay) {
 export function createLoader() {
   const loader = document.createElement(ELEMENTS.DIV);
   loader.className = CLASSES.TABLE_LOADER;
-  loader.textContent = MESSAGES.LOADING; // Or use a spinner icon
+  loader.textContent = MESSAGES.LOADING; 
   return loader;
 }
 

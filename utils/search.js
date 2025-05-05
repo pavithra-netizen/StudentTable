@@ -1,4 +1,4 @@
-import { CLASSES, ELEMENTS, EVENTS, TEXT } from './constants.js';
+import { CLASSES, ELEMENTS, TEXT } from '../components/Table/constants.js';
 import { debounce } from './helpers.js';
 
 export function renderSearchBar(container, onSearch) {
@@ -21,13 +21,13 @@ export function renderSearchBar(container, onSearch) {
     onSearch(value);
   }, 300);
 
-  input.addEventListener(EVENTS.INPUT, (e) => {
+  input.addEventListener('input', (e) => {
     const value = e.target.value.trim().toLowerCase();
     clearBtn.classList.toggle(CLASSES.VISIBLE, value !== '');
     handleSearch(value);
   });
 
-  clearBtn.addEventListener(EVENTS.CLICK, () => {
+  clearBtn.addEventListener('click', () => {
     input.value = '';
     clearBtn.classList.remove(CLASSES.VISIBLE);
     handleSearch('');

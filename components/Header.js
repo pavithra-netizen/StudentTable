@@ -1,4 +1,4 @@
-import { CLASSES, ELEMENTS, EVENTS, TEXT } from "../utils/constants.js";
+import { CLASSES, ELEMENTS, TEXT } from "./Table/constants.js";
 
 export function renderHeader(config, table, sortState, handleTableSort, data, handleTableFilter) {
     const thead = document.createElement(ELEMENTS.THEAD);
@@ -20,7 +20,7 @@ export function renderHeader(config, table, sortState, handleTableSort, data, ha
             th.appendChild(iconSpan);
             sortState[element.key] = TEXT.SORT_STATES.NEUTRAL;
 
-            th.addEventListener(EVENTS.CLICK, () => {
+            th.addEventListener('click', () => {
                 const currentOrder = sortState[element.key];
                 const nextOrder = currentOrder === TEXT.SORT_STATES.NEUTRAL ? TEXT.SORT_STATES.ASC :
                     (currentOrder === TEXT.SORT_STATES.ASC ? TEXT.SORT_STATES.DESC : TEXT.SORT_STATES.NEUTRAL);
@@ -48,7 +48,7 @@ export function renderHeader(config, table, sortState, handleTableSort, data, ha
                 select.appendChild(option);
             });
 
-            select.addEventListener(EVENTS.CHANGE, () => {
+            select.addEventListener('change', () => {
                 handleTableFilter(element.key, select.value);
             });
 

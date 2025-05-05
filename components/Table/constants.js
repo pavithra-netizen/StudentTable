@@ -15,13 +15,6 @@ export const ELEMENTS = {
     INPUT: 'input'
 };
 
-export const EVENTS = {
-    CLICK: 'click',
-    CHANGE: 'change',
-    INPUT: 'input',
-    SCROLL: 'scroll',
-    
-}
 
 export const CLASSES = {
     TABLE: 'tableTag',

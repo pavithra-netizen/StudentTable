@@ -1,4 +1,4 @@
-import { ELEMENTS, EVENTS } from "../utils/constants.js";
+import { ELEMENTS } from "./Table/constants.js";
 import { throttle } from "../utils/helpers.js";
 
 let ROW_HEIGHT = 48;
@@ -6,7 +6,7 @@ let throttledScrollHandlerRef; // Declare outside renderBody to maintain referen
 let dataRef
 const buffer = 5;
 
-export function renderBody(data = null, config, table, page = 0) {
+export function renderBody(data = null, config, table) {
     const container = document.getElementById(ELEMENTS.CONTAINER);
     let tbody = table.querySelector(ELEMENTS.TBODY);
     dataRef = data
@@ -25,22 +25,21 @@ export function renderBody(data = null, config, table, page = 0) {
     ROW_HEIGHT = getDynamicRowHeight(tbody);
 
     // the existing throttled function is still active and listening to scroll events.
-
     if (!throttledScrollHandlerRef) {
         throttledScrollHandlerRef = throttle(() => {
             const scrollTop = container.scrollTop;
-            const startIndex = Math.max(0,Math.floor(scrollTop / ROW_HEIGHT)-buffer);
-             //4418/48 = 92 -->startIndex
-            const rows = handleDynamicRowInsertionOrDeletion(dataRef, config, tbody);
-            updateRows(dataRef, config, rows, startIndex);
+            const startIndex = Math.max(0, Math.floor(scrollTop / ROW_HEIGHT) - buffer);
+            //4418/48 = 92 -->startIndex
+            const rowsCount = handleDynamicRowInsertionOrDeletion(dataRef, config, tbody); //19->TotalRowCount
+            updateRows(dataRef, config, rowsCount, startIndex);
             tbody.style.transform = `translateY(${startIndex * ROW_HEIGHT}px)`; // move the <tbody> element vertically.
         }, 20);
-        container.addEventListener(EVENTS.SCROLL, throttledScrollHandlerRef);
+        container.addEventListener('scroll', throttledScrollHandlerRef);
     }
 
     // Initial render
-    const rows = handleDynamicRowInsertionOrDeletion(data, config, tbody)
-    updateRows(data, config, rows, 0);
+    const rowsCount = handleDynamicRowInsertionOrDeletion(data, config, tbody);
+    updateRows(data, config, rowsCount, 0);
 }
 
 function handleDynamicRowInsertionOrDeletion(data, config, tbody) {
