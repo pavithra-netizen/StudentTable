@@ -6,11 +6,37 @@ body {
 }
 
 .container {
-  display:flex;
+  display: flex;
   flex-direction: column;
   align-items: center;
-  height: 100vh;  /*50vh = 400px.*/
+  height: 100vh;
+  /*50vh = 400px.*/
   overflow-y: scroll;
+}
+
+/* Wrapper around the label and other elements like search icon */
+.column-wrapper {
+  display: flex;
+  justify-content: space-between;
+  /* This ensures that the label and icon are on opposite ends */
+  align-items: center;
+  width: 100%;
+}
+
+.search {
+  cursor: pointer;
+  content: "🔍";
+  margin-left: auto;
+  /* Push the search icon to the right */
+}
+
+.search-wrapper {
+  display: none;
+  /* Initially hidden */
+}
+
+.search-wrapper.visible {
+  display: flex;
 }
 
 .sortable {
@@ -28,6 +54,7 @@ body {
 .sortable.desc::before {
   content: "↓";
 }
+
 .sortable.neutral::before {
   content: "⇅";
 }
@@ -53,7 +80,7 @@ body {
   text-align: left;
   font-size: 14px;
   font-weight: 400;
-  color: #444; 
+  color: #444;
 }
 
 .tableTag th {
@@ -82,10 +109,11 @@ body {
 }
 
 .name-text {
+  white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  white-space: nowrap;
-  display: inline-block;
+  display: block;
+  /* or inline-block or flex item */
   max-width: 100%;
 }
 
@@ -133,7 +161,8 @@ body {
   background-color: #fff;
   color: #333;
   text-align: center;
-  width: 100%; /* Ensures the select box is aligned with the label */
+  width: 100%;
+  /* Ensures the select box is aligned with the label */
   cursor: pointer;
 }
 
@@ -141,11 +170,13 @@ body {
 .search-wrapper {
   /* position: relative; */
   display: flex;
-  justify-content: center; /* Center the search bar horizontally */
-  align-items: center;     /* Center vertically if needed */
+  justify-content: center;
+  /* Center the search bar horizontally */
+  align-items: center;
+  /* Center vertically if needed */
   position: sticky;
   top: 0;
-  z-index: 2; 
+  z-index: 2;
 }
 
 .search-input-wrapper {
@@ -158,7 +189,8 @@ body {
   font-size: 14px;
   border: 1px solid #ccc;
   border-radius: 4px;
-  padding: 6px 10px;  /* Simple padding */
+  padding: 6px 10px;
+  /* Simple padding */
   box-sizing: border-box;
 }
 
@@ -171,7 +203,8 @@ body {
   right: 8px;
   top: 50%;
   cursor: pointer;
-  font-size: 14px;  /* Larger clear icon */
+  font-size: 14px;
+  /* Larger clear icon */
   color: #888;
   display: none;
 }
@@ -182,11 +215,8 @@ body {
 
 .table-loader {
   text-align: center;
-  padding: 1rem; /*16 pixels*/
+  padding: 1rem;
+  /*16 pixels*/
   font-size: 16px;
   color: #555;
 }
-
-
-
-

@@ -1,11 +1,11 @@
 import { CLASSES, ELEMENTS, TEXT } from '../components/Table/constants.js';
 import { debounce } from './helpers.js';
 
-export function renderSearchBar(container, onSearch) {
+export function renderSearchBar(onSearch) {
   // Wrapper
   const wrapper = document.createElement(ELEMENTS.DIV);
   wrapper.classList.add(CLASSES.SEARCH_WRAPPER);
-
+ 
   // Input
   const input = document.createElement(ELEMENTS.INPUT);
   input.classList.add(CLASSES.SEARCH_INPUT);

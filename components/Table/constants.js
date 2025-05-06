@@ -15,11 +15,11 @@ export const ELEMENTS = {
     INPUT: 'input'
 };
 
-
 export const CLASSES = {
     TABLE: 'tableTag',
     NO_DATA_MESSAGE: 'no-data-message',
     SORTABLE_ICON: 'sortable',
+    SEARCHABLE_ICON:'search',
     NAME_CONTAINER: 'name-container',
     NAME_TEXT: 'name-text',
     AGE_TEXT: 'age-text',
@@ -32,7 +32,8 @@ export const CLASSES = {
     VISIBLE: 'visible',
     SEARCH_WRAPPER: 'search-wrapper',
     SEARCH_CLEAR: 'search-clear',
-    TABLE_LOADER:'table-loader'
+    TABLE_LOADER:'table-loader',
+    COLUMN_WRAPPER:'column-wrapper'
 };
 
 export const MESSAGES = {
@@ -40,6 +41,7 @@ export const MESSAGES = {
     ERROR_LOADING: 'Error loading data. Please try again later.',
     LOADING:'Loading...'
 };
+
 export const TEXT = {
     ALL_OPTION: "All",
     SORT_STATES: {

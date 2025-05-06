@@ -9,7 +9,8 @@ export const config = {
       minWidth: '100px',
       maxWidth: '150px',
       isSortable: false,
-      isFilterable: false
+      isFilterable: false,
+      isSearchable:false
     },
     {
       key: 'name',
@@ -18,7 +19,8 @@ export const config = {
       minWidth: '150px',
       maxWidth: '250px',
       isSortable: true,
-      isFilterable: false
+      isFilterable: false,
+      isSearchable:true
     },
     {
       key: 'age',
@@ -27,7 +29,9 @@ export const config = {
       minWidth: '80px',
       maxWidth: '120px',
       isSortable: true,
-      isFilterable: false
+      isFilterable: false,
+      isSearchable:false,
+      
     },
     {
       key: 'rank',
@@ -36,7 +40,8 @@ export const config = {
       minWidth: '100px',
       maxWidth: '200px',
       isSortable: false,
-      isFilterable: true
+      isFilterable: true,
+      isSearchable:false
     }
   ],
 

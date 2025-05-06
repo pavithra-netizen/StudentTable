@@ -70,6 +70,11 @@ function handleDynamicRowInsertionOrDeletion(data, config, tbody) {
         for (let j = 0; j < config.columns.length; j++) {
             if (!cells[j]) {
                 const td = document.createElement(ELEMENTS.TD);
+                // ✅ Set column widths only once at TD creation
+                const col = config.columns[j];
+                if (col.width) td.style.width = `${col.width}px`;
+                if (col.minWidth) td.style.minWidth = `${col.minWidth}px`;
+                if (col.maxWidth) td.style.maxWidth = `${col.maxWidth}px`;
                 tr.appendChild(td);
             }
         }
@@ -94,11 +99,6 @@ function updateRows(data, config, rows, startIndex) {
             const cell = cells[j];
             // Clear previous content
             while (cell.firstChild) cell.removeChild(cell.firstChild);
-
-            //  Apply column width/minWidth/maxWidth
-            if (col.width) cell.style.width = col.width;
-            if (col.minWidth) cell.style.minWidth = col.minWidth;
-            if (col.maxWidth) cell.style.maxWidth = col.maxWidth;
 
             if (rowData) {
                 const value = rowData[col.key];
