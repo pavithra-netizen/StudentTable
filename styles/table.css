@@ -64,6 +64,10 @@ body {
   display: flex;
   flex-direction: column;
 } */
+table {
+  table-layout: fixed;
+  width: 100%;
+}
 
 .tableTag {
   width: 80%;
@@ -114,7 +118,7 @@ body {
   text-overflow: ellipsis;
   display: block;
   /* or inline-block or flex item */
-  max-width: 100%;
+  /* max-width: 100%; */
 }
 
 .age-text {

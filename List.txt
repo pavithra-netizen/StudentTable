@@ -1,0 +1,5 @@
+// search moved to table header
+// removed column min-width/max-width from updateRows
+// stucture reset
+// reverted the events from constants
+// refactored the filter logic
